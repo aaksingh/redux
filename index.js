@@ -1,5 +1,8 @@
 import redux from "redux";
-import { createStore, combineReducers } from "redux";
+import { createStore, combineReducers, applyMiddleware } from "redux";
+import createLogger from "redux-logger";
+
+const { logger } = createLogger;
 
 const BUY_CAKE = "BUY_CAKE";
 const BUY_ICECREAM = "BUY_ICECREAMS";
@@ -19,11 +22,6 @@ const buyCakes = () => {
 const buyIceCreams = () => {
   return buyIceCream;
 };
-
-// const initialState = {
-//   numofCakes: 10,
-//   numofIceCreams: 10,
-// };
 
 const initialCakeState = {
   numofCakes: 10,
@@ -63,7 +61,7 @@ const rootReducer = combineReducers({
   iceCream: iceCreamReducer,
 });
 
-const Store = createStore(rootReducer);
+const Store = createStore(rootReducer, applyMiddleware(logger));
 
 console.log("initialState", Store.getState());
 
