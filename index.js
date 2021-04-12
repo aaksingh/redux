@@ -1,5 +1,5 @@
 import redux from "redux";
-import { createStore } from "redux";
+import { createStore, combineReducers } from "redux";
 
 const BUY_CAKE = "BUY_CAKE";
 const BUY_ICECREAM = "BUY_ICECREAMS";
@@ -20,10 +20,10 @@ const buyIceCreams = () => {
   return buyIceCream;
 };
 
-const initialState = {
-  numofCakes: 10,
-  numofIceCreams: 10,
-};
+// const initialState = {
+//   numofCakes: 10,
+//   numofIceCreams: 10,
+// };
 
 const initialCakeState = {
   numofCakes: 10,
@@ -48,8 +48,6 @@ const cakeReducer = (state = initialCakeState, action) => {
 
 const iceCreamReducer = (state = inittialIceCreamState, action) => {
   switch (action.type) {
-    case BUY_CAKE:
-
     case BUY_ICECREAM:
       return {
         ...state,
@@ -60,7 +58,12 @@ const iceCreamReducer = (state = inittialIceCreamState, action) => {
   }
 };
 
-const Store = createStore(reducer);
+const rootReducer = combineReducers({
+  cake: cakeReducer,
+  iceCream: iceCreamReducer,
+});
+
+const Store = createStore(rootReducer);
 
 console.log("initialState", Store.getState());
 
